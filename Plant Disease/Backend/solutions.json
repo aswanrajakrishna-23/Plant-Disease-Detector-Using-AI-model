@@ -1,0 +1,14 @@
+{
+  "Apple___healthy": {
+    "description": "The plant is healthy.",
+    "treatment": "No treatment needed.",
+    "prevention": "Maintain proper care.",
+    "organic": "Continue natural care."
+  },
+  "Apple___Black_rot": {
+    "description": "Fungal disease causing dark spots.",
+    "treatment": "Use fungicides like Mancozeb.",
+    "prevention": "Avoid excess moisture.",
+    "organic": "Apply neem oil."
+  }
+}

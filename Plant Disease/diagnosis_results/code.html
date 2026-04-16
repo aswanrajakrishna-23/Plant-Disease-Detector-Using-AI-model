@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Diagnosis Results - Botanist Editorial</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed": "#bcefc0",
+                        "inverse-on-surface": "#f0f1f0",
+                        "on-tertiary-container": "#b0e490",
+                        "surface-bright": "#f9f9f8",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#fcdaaf",
+                        "on-primary-fixed-variant": "#22502d",
+                        "inverse-surface": "#2e3131",
+                        "surface-variant": "#e1e3e2",
+                        "inverse-primary": "#a0d3a5",
+                        "on-surface-variant": "#414941",
+                        "background": "#f9f9f8",
+                        "on-secondary-fixed-variant": "#594323",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#244e0b",
+                        "surface-container-highest": "#e1e3e2",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#afe2b3",
+                        "on-secondary-fixed": "#291800",
+                        "primary-container": "#386641",
+                        "outline-variant": "#c1c9be",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e7e8e7",
+                        "error": "#ba1a1a",
+                        "secondary": "#725a38",
+                        "surface-tint": "#3a6843",
+                        "on-background": "#191c1c",
+                        "primary": "#204e2b",
+                        "tertiary-container": "#3b6722",
+                        "surface-container": "#edeeed",
+                        "on-surface": "#191c1c",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#d9dad9",
+                        "primary-fixed-dim": "#a0d3a5",
+                        "tertiary-fixed": "#bdf19c",
+                        "on-tertiary-fixed-variant": "#26500d",
+                        "surface": "#f9f9f8",
+                        "secondary-fixed-dim": "#e1c298",
+                        "on-secondary-container": "#775e3c",
+                        "outline": "#727970",
+                        "tertiary-fixed-dim": "#a2d582",
+                        "on-tertiary-fixed": "#082100",
+                        "secondary-fixed": "#ffddb2",
+                        "surface-container-low": "#f3f4f3",
+                        "on-primary-fixed": "#00210a",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-shift { background-color: #f3f4f3; }
+        .backdrop-blur-md { backdrop-filter: blur(12px); }
+        .glass-panel { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-stone-50/70 dark:bg-stone-950/70 backdrop-blur-md flex justify-between items-center px-8 h-16 w-full">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold tracking-tight text-emerald-900 dark:text-emerald-500 font-headline">Botanist Editorial</span>
+</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-stone-500 dark:text-stone-400 font-label text-sm hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors px-3 py-1 rounded" href="../dashboard/code.html">Dashboard</a>
+<a class="text-stone-500 dark:text-stone-400 font-label text-sm hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors px-3 py-1 rounded" href="../scan_plant/code.html">Scan Plant</a>
+<a class="text-emerald-900 dark:text-emerald-400 font-bold font-label text-sm transition-colors px-3 py-1 rounded" href="../diagnosis_results/code.html">Diagnosis</a>
+<a class="text-stone-500 dark:text-stone-400 font-label text-sm hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors px-3 py-1 rounded" href="../my_garden/code.html">My Garden</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-stone-500 hover:text-emerald-900">search</button>
+<span class="material-symbols-outlined text-emerald-900" data-icon="account_circle">account_circle</span>
+</div>
+</header>
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="hidden md:flex h-screen w-64 fixed left-0 top-0 bg-stone-100 dark:bg-stone-900 flex-col p-6 pt-24 space-y-4 z-40">
+<div class="font-['Manrope'] text-lg font-extrabold text-emerald-900 dark:text-emerald-100 mb-8">Lead Botanist</div>
+<div class="space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:translate-x-1 transition-transform font-['Inter'] text-sm tracking-wide" href="../dashboard/code.html">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:translate-x-1 transition-transform font-['Inter'] text-sm tracking-wide" href="../scan_plant/code.html">
+<span class="material-symbols-outlined" data-icon="center_focus_strong">center_focus_strong</span>
+<span>Scan Plant</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-stone-800 text-emerald-900 dark:text-emerald-400 font-semibold rounded-lg shadow-sm font-['Inter'] text-sm tracking-wide" href="../diagnosis_results/code.html">
+<span class="material-symbols-outlined" data-icon="biotech">biotech</span>
+<span>Diagnosis</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:translate-x-1 transition-transform font-['Inter'] text-sm tracking-wide" href="../my_garden/code.html">
+<span class="material-symbols-outlined" data-icon="potted_plant">potted_plant</span>
+<span>My Garden</span>
+</a>
+</div>
+<div class="mt-auto pt-8">
+<button onclick="window.location.href='../scan_plant/code.html'" class="w-full bg-emerald-900 text-white rounded-full py-3 font-semibold text-sm hover:scale-95 duration-200">
+                Start New Scan
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-64 pt-20 pb-12 px-6 md:px-12 max-w-7xl mx-auto">
+<!-- Hero Section: Editorial Layout -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+<div class="lg:col-span-7 relative group">
+<div class="aspect-[4/3] rounded-xl overflow-hidden shadow-sm">
+<img id="resultImage" alt="Uploaded Plant Scan" class="w-full h-full object-cover" data-alt="Close-up photograph of a diseased plant leaf with white powdery spots across the green surface, soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwQ6xx7uUmjivyiaUdboMpq4V9O2FVGTrUraSjfpdcpOX5Y58Jel_4I32TdGybvFnGFnodKrbdumbl-YOjq3hT1fTcVQ9s-OLPh33MMUBh1MpmQggCX4Z8hM8emphEGLk99bRt7YCIYuT6BYh6WXkTPSmH8ii7GOHXeLFb1C1WXYORv2dkbYzsoYsl7B6r67JtNJB_qlgXTqfmem5-Sy_KgZ9Bq-jBdAhyQ-zE2WS47oUVKqB_LZ_vihl6NLW8LjHhh646c7AYJIM"/>
+<!-- Glassy Diagnostic Overlay -->
+<div class="absolute inset-0 bg-primary/10 pointer-events-none"></div>
+<div class="absolute bottom-6 left-6 glass-panel p-4 rounded-xl max-w-xs">
+<span class="text-xs uppercase tracking-widest text-secondary font-bold mb-1 block">Detection Confidence</span>
+<div class="flex items-center gap-3">
+<span id="confidence" class="text-2xl font-headline font-extrabold text-on-surface">94.2%</span>
+<span class="text-emerald-700 material-symbols-outlined">check_circle</span>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-5 flex flex-col justify-center">
+<div id="actionRequiredBadge" class="mb-4 inline-flex items-center gap-2 px-3 py-1 bg-error-container text-on-error-container rounded-full text-xs font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm">warning</span>
+                    Action Required
+                </div>
+<h1 id="diseaseName" class="text-5xl md:text-6xl font-headline font-extrabold text-on-surface tracking-tight mb-4">Powdery Mildew</h1>
+<p id="plantName" class="text-secondary font-label text-sm mb-6 leading-relaxed">Fungal Infection • Erysiphaceae Family</p>
+<div class="bg-surface-container-low p-6 rounded-xl space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant font-semibold">Severity Level</span>
+<span id="severityLevelText" class="text-error font-bold">High</span>
+</div>
+<!-- Health Spectrum Gauge -->
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden relative">
+<div class="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-error"></div>
+<div id="severityIndicator" class="absolute top-0 right-[15%] h-full w-4 bg-white shadow-md border-x border-outline-variant/20 -translate-y-1 scale-150 rounded-sm transition-all duration-1000"></div>
+</div>
+<p id="description" class="text-xs text-on-surface-variant leading-relaxed italic">
+                        The infection has spread to 65% of the upper leaf surfaces. Immediate treatment is necessary to prevent necrotic tissue damage.
+                    </p>
+</div>
+<div class="flex gap-3 mt-8">
+<button class="flex-1 bg-gradient-to-br from-primary to-primary-container text-white py-4 rounded-full font-headline font-bold text-sm shadow-lg hover:translate-y-[-2px] transition-all">
+                        Treatment Guide
+                    </button>
+<button class="px-6 border border-outline-variant text-primary rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Detailed Analysis & Comparison Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+<!-- Analysis Card -->
+<div class="md:col-span-2 bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/10 shadow-sm">
+<h2 class="text-2xl font-headline font-bold mb-6">Diagnostic Insights</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+<div>
+<h3 class="text-xs font-bold uppercase text-secondary mb-3">Symptoms Identified</h3>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-emerald-600 text-sm mt-1">lens</span>
+<span class="text-sm text-on-surface-variant">White, talcum-like circular spots on foliage</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-emerald-600 text-sm mt-1">lens</span>
+<span class="text-sm text-on-surface-variant">Yellowing and curling of primary leaves</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-emerald-600 text-sm mt-1">lens</span>
+<span class="text-sm text-on-surface-variant">Stunted growth in new shoot development</span>
+</li>
+</ul>
+</div>
+<div>
+<h3 class="text-xs font-bold uppercase text-secondary mb-3">Environmental Causes</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                            High humidity and moderate temperatures (60-80°F) create the perfect breeding ground. Poor air circulation around the lower canopy likely accelerated the spread.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Comparison Reference -->
+<div class="bg-surface-container-high rounded-xl p-4 flex flex-col">
+<div class="mb-4">
+<h3 class="text-sm font-bold text-emerald-900">Reference Library</h3>
+<p class="text-xs text-on-surface-variant">Match accuracy: 91%</p>
+</div>
+<div class="flex-grow rounded-lg overflow-hidden relative">
+<img alt="Reference Image" class="w-full h-full object-cover" data-alt="Microscopic view of Erysiphaceae fungi structure on a leaf, laboratory setting, neutral white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw3fsTkQyX0D7xhzwk9MooxSDZSqTycjwzbC2hIRulM3ZErTWzgJjt1_RRG-C0i-ACoZMiozsa8IyhGg5Tbm9lLZmbVBFKN7Jeb7HT0RtJT5lAf1KVhpMfniN-d9SM0Yfp3sv0d647RpCdTtgXfjUJyKypM2Hz7FOgY9R5qOS4T2W0TRd-r3FNnXThtqKt3z62DvucqLEqxWo1vPXAiIHh1EEjDATJ5ftxU-ldM7FI4PiQTwXEzOuNvB9kjmfiHMkbCB4f2yZpFZg"/>
+<div class="absolute top-2 right-2 px-2 py-1 glass-panel text-[10px] font-bold rounded">SCIENTIFIC SAMPLE</div>
+</div>
+<button class="mt-4 text-primary text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">
+                    View Complete Journal <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Actionable Treatment Recommendations -->
+<section class="mb-16">
+<h2 class="text-3xl font-headline font-extrabold mb-8">Actionable Recovery Plan</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Step 1 -->
+<div class="bg-stone-100 dark:bg-stone-900 p-8 rounded-xl relative overflow-hidden">
+<span class="absolute -top-4 -right-2 text-8xl font-headline font-black text-white/40 pointer-events-none">01</span>
+<h3 class="text-lg font-bold mb-3 relative z-10 text-emerald-800">Treatment</h3>
+<p id="treatment" class="text-sm text-on-surface-variant leading-relaxed relative z-10">
+                        Separate this plant from healthy neighbors. Powdery mildew spores travel easily via air currents and touch.
+                    </p>
+</div>
+<!-- Step 2 -->
+<div class="bg-stone-100 dark:bg-stone-900 p-8 rounded-xl relative overflow-hidden">
+<span class="absolute -top-4 -right-2 text-8xl font-headline font-black text-white/40 pointer-events-none">02</span>
+<h3 class="text-lg font-bold mb-3 relative z-10 text-emerald-800">Prevention</h3>
+<p id="prevention" class="text-sm text-on-surface-variant leading-relaxed relative z-10">
+                        Apply organic Neem Oil spray once every 7 days. Focus on both upper and lower leaf surfaces for maximum efficacy.
+                    </p>
+</div>
+<!-- Step 3 -->
+<div class="bg-stone-100 dark:bg-stone-900 p-8 rounded-xl relative overflow-hidden">
+<span class="absolute -top-4 -right-2 text-8xl font-headline font-black text-white/40 pointer-events-none">03</span>
+<h3 class="text-lg font-bold mb-3 relative z-10 text-emerald-800">Organic Solution</h3>
+<p id="organic" class="text-sm text-on-surface-variant leading-relaxed relative z-10">
+                        Remove heavily infested leaves and dispose of them in a sealed bag. Do not compost infected plant matter.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Secondary CTA: Save to Garden -->
+<section class="bg-surface-container border border-outline-variant/10 rounded-2xl p-10 flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="flex items-center gap-6">
+<div class="w-20 h-20 rounded-xl overflow-hidden shadow-inner flex-shrink-0">
+<img alt="Thumbnail" class="w-full h-full object-cover" data-alt="Small terracotta pot with a green succulent plant on a light wooden table, minimalist botanical aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRzCSUhC2s4f2PiXmqP1hOr5lrl9EsREbqQ_jwRv5GqEkWlpMxwsUNHUFYLPwAorBkSJQ7LOlBeHbC2ZsgWqf40CLE_XDIUHjdUyrPSdvQ-BEeanKGDHkktViZwJxBtP8RbkLh4TqVd_nW2kiSsYB1O4iehWA42SlbbMniirAPBBzpJnh-Zfee06Vzh0k95hYGt2GEk8YWe-dsYiusaJzy4dnNbCsSXX2jEAvYusHlCkVS32WhrJwy5jZvornc2xpZLRKjeCJANog"/>
+</div>
+<div>
+<h2 class="text-xl font-headline font-bold mb-2">Track your plant's recovery</h2>
+<p class="text-sm text-on-surface-variant">Adding this to "My Garden" allows our AI to track the treatment progress and send watering reminders.</p>
+</div>
+</div>
+<button onclick="window.location.href='../my_garden/code.html'" class="whitespace-nowrap bg-primary text-white px-8 py-4 rounded-full font-headline font-bold text-sm shadow-md flex items-center gap-2 hover:scale-105 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">potted_plant</span>
+                Save to My Garden
+            </button>
+</section>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full bg-stone-50 dark:bg-stone-950 flex justify-around items-center h-20 px-4 z-50 shadow-2xl">
+<button onclick="window.location.href='../dashboard/code.html'" class="flex flex-col items-center gap-1 text-stone-500">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">Home</span>
+</button>
+<button onclick="window.location.href='../scan_plant/code.html'" class="flex flex-col items-center gap-1 text-stone-500">
+<span class="material-symbols-outlined">center_focus_strong</span>
+<span class="text-[10px] font-bold">Scan</span>
+</button>
+<button onclick="window.location.href='../diagnosis_results/code.html'" class="flex flex-col items-center gap-1 text-emerald-900 font-bold">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">biotech</span>
+<span class="text-[10px] font-bold">Results</span>
+</button>
+<button onclick="window.location.href='../my_garden/code.html'" class="flex flex-col items-center gap-1 text-stone-500">
+<span class="material-symbols-outlined">potted_plant</span>
+<span class="text-[10px] font-bold">Garden</span>
+</button>
+</nav>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const resultString = sessionStorage.getItem('result');
+        console.log("Session storage:", resultString);
+        
+        if (!resultString) {
+            // Fallback UI gracefully if result is null
+            document.getElementById('diseaseName').innerText = "Scan Incomplete";
+            document.getElementById('plantName').innerText = "Please return to the scan page and try again.";
+            return;
+        }
+
+        try {
+            const result = JSON.parse(resultString);
+            console.log("Loaded result:", result);
+            
+            const savedImage = sessionStorage.getItem('image');
+            if (savedImage) {
+                const resultImg = document.getElementById('resultImage');
+                if(resultImg) resultImg.src = savedImage;
+            }
+
+            const confidenceElem = document.getElementById('confidence');
+            if(confidenceElem) {
+                confidenceElem.innerText = ((result.confidence || 0) * 100).toFixed(2) + "%";
+            }
+            
+            const diseaseElem = document.getElementById('diseaseName');
+            if(diseaseElem && result.disease) {
+                diseaseElem.innerText = result.disease.replaceAll("_", " ");
+            }
+            
+            const plantElem = document.getElementById('plantName');
+            if(plantElem && result.plant) {
+                plantElem.innerText = result.plant;
+            }
+            
+            const descElem = document.getElementById('description');
+            if(descElem && result.description) descElem.innerText = result.description;
+            
+            const treatmentElem = document.getElementById('treatment');
+            if(treatmentElem && result.treatment) treatmentElem.innerText = result.treatment;
+            
+            const preventionElem = document.getElementById('prevention');
+            if(preventionElem && result.prevention) preventionElem.innerText = result.prevention;
+            
+            const organicElem = document.getElementById('organic');
+            if(organicElem && result.organic) organicElem.innerText = result.organic;
+            
+            // Dynamic severity and action required logic
+            const isHealthy = result.disease && result.disease.toLowerCase().includes('healthy');
+            const actionRequiredBadge = document.getElementById('actionRequiredBadge');
+            const severityLevelText = document.getElementById('severityLevelText');
+            const severityIndicator = document.getElementById('severityIndicator');
+
+            if (isHealthy) {
+                if (actionRequiredBadge) actionRequiredBadge.classList.add('hidden');
+                if (severityLevelText) {
+                    severityLevelText.innerText = 'None';
+                    severityLevelText.className = 'text-primary font-bold';
+                }
+                if (severityIndicator) {
+                    severityIndicator.classList.remove('right-[15%]');
+                    severityIndicator.style.right = '95%';
+                }
+            } else {
+                if (actionRequiredBadge) actionRequiredBadge.classList.remove('hidden');
+                if (severityLevelText) {
+                    // Try to generate a realistic severity based on confidence
+                    const confidence = result.confidence || 0.95;
+                    if (confidence > 0.9) {
+                        severityLevelText.innerText = 'High';
+                        severityLevelText.className = 'text-error font-bold';
+                        if (severityIndicator) {
+                            severityIndicator.style.right = '';
+                            severityIndicator.classList.add('right-[15%]');
+                        }
+                    } else {
+                        severityLevelText.innerText = 'Medium';
+                        severityLevelText.className = 'text-secondary font-bold';
+                        if (severityIndicator) {
+                            severityIndicator.classList.remove('right-[15%]');
+                            severityIndicator.style.right = '50%';
+                        }
+                    }
+                }
+            }
+            
+        } catch (e) {
+            console.error("Error parsing diagnosis results:", e);
+            document.getElementById('diseaseName').innerText = "Data Error";
+            document.getElementById('plantName').innerText = "Invalid response format.";
+        }
+    });
+</script>
+</body></html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Botanist Editorial - Scan Plant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed": "#bcefc0",
+              "inverse-on-surface": "#f0f1f0",
+              "on-tertiary-container": "#b0e490",
+              "surface-bright": "#f9f9f8",
+              "on-error-container": "#93000a",
+              "secondary-container": "#fcdaaf",
+              "on-primary-fixed-variant": "#22502d",
+              "inverse-surface": "#2e3131",
+              "surface-variant": "#e1e3e2",
+              "inverse-primary": "#a0d3a5",
+              "on-surface-variant": "#414941",
+              "background": "#f9f9f8",
+              "on-secondary-fixed-variant": "#594323",
+              "on-secondary": "#ffffff",
+              "tertiary": "#244e0b",
+              "surface-container-highest": "#e1e3e2",
+              "on-primary": "#ffffff",
+              "on-primary-container": "#afe2b3",
+              "on-secondary-fixed": "#291800",
+              "primary-container": "#386641",
+              "outline-variant": "#c1c9be",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-high": "#e7e8e7",
+              "error": "#ba1a1a",
+              "secondary": "#725a38",
+              "surface-tint": "#3a6843",
+              "on-background": "#191c1c",
+              "primary": "#204e2b",
+              "tertiary-container": "#3b6722",
+              "surface-container": "#edeeed",
+              "on-surface": "#191c1c",
+              "on-error": "#ffffff",
+              "surface-dim": "#d9dad9",
+              "primary-fixed-dim": "#a0d3a5",
+              "tertiary-fixed": "#bdf19c",
+              "on-tertiary-fixed-variant": "#26500d",
+              "surface": "#f9f9f8",
+              "secondary-fixed-dim": "#e1c298",
+              "on-secondary-container": "#775e3c",
+              "outline": "#727970",
+              "tertiary-fixed-dim": "#a2d582",
+              "on-tertiary-fixed": "#082100",
+              "secondary-fixed": "#ffddb2",
+              "surface-container-low": "#f3f4f3",
+              "on-primary-fixed": "#00210a",
+              "error-container": "#ffdad6",
+              "on-tertiary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(249, 249, 248, 0.7);
+            backdrop-filter: blur(20px);
+        }
+        .camera-overlay {
+            background: linear-gradient(to bottom, transparent 0%, transparent 80%, rgba(25, 28, 28, 0.4) 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased">
+<!-- SideNavBar (Desktop Shell) -->
+<aside class="hidden md:flex h-screen w-64 fixed left-0 top-0 bg-stone-100 dark:bg-stone-900 flex-col p-6 space-y-4 z-40">
+<div class="font-['Manrope'] text-lg font-extrabold text-emerald-900 dark:text-emerald-100 mb-8">Botanist Editorial</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:translate-x-1 transition-transform duration-300" href="../dashboard/code.html">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Inter'] text-sm tracking-wide">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-stone-800 text-emerald-900 dark:text-emerald-400 font-semibold rounded-lg shadow-sm translate-x-1 transition-transform duration-300" href="../scan_plant/code.html">
+<span class="material-symbols-outlined" data-icon="center_focus_strong">center_focus_strong</span>
+<span class="font-['Inter'] text-sm tracking-wide">Scan Plant</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:translate-x-1 transition-transform duration-300" href="../diagnosis_results/code.html">
+<span class="material-symbols-outlined" data-icon="biotech">biotech</span>
+<span class="font-['Inter'] text-sm tracking-wide">Diagnosis</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:translate-x-1 transition-transform duration-300" href="../my_garden/code.html">
+<span class="material-symbols-outlined" data-icon="potted_plant">potted_plant</span>
+<span class="font-['Inter'] text-sm tracking-wide">My Garden</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-outline-variant/15">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a professional botanist with a warm friendly expression in a sunlit laboratory" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlveN-n_awWyODRIDs59X_U5SACiA-Ba8N3wL99rPIjqTfWBtDyiz_3jkrAbNCmmzb3qdB5ZdLR2xjgMb_zA3fWg8Mux3tGvzCTjr0gS32eWr4DcaUzAFB8xBVAOo48eyntkYNSSTyA4ZXwlNyCl7AK2GrHfkiKDu2oELRicStFFrl-ogOQUItji6nI8mkUNNt5QqDsmqpqdLG4IHqZD3vyABSEEyTGGaSJ-VL8roi29KKtkJO6C8GG8QIJQJKxZOh-0Dy1N3SREY"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Lead Botanist</p>
+<p class="text-xs text-secondary">Scientific Journal</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar (Mobile & Global Context) -->
+<header class="fixed top-0 w-full z-50 bg-stone-50/70 dark:bg-stone-950/70 backdrop-blur-md flex justify-between items-center px-6 md:px-8 md:pl-72 h-16 w-full">
+<div class="text-xl font-['Manrope'] font-bold tracking-tight text-emerald-900 dark:text-emerald-500">Botanist Editorial</div>
+<div class="flex items-center gap-4">
+<button type="button" class="p-2 rounded-full hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors scale-95 duration-200">
+<span class="material-symbols-outlined text-emerald-900 dark:text-emerald-500" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="min-h-screen pt-20 pb-24 md:pb-8 md:pl-72 px-4 md:px-8">
+<div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Editorial Header Section -->
+<div class="lg:col-span-12 mb-4">
+<span class="font-label text-sm font-semibold tracking-widest text-secondary uppercase">Scientific Analysis</span>
+<h1 class="font-headline text-4xl md:text-5xl font-extrabold text-on-surface mt-2 tracking-tight">Plant Scanning <span class="text-primary italic">Interface</span></h1>
+<p class="font-body text-on-surface-variant max-w-2xl mt-4 leading-relaxed">
+                    Utilizing high-resolution computer vision to detect early markers of pathogenic stress. For optimal results, ensure the specimen is well-lit and centered.
+                </p>
+</div>
+<!-- Primary Scan Interface (Bento Main Piece) -->
+<div class="lg:col-span-8 relative aspect-[4/5] md:aspect-square bg-surface-container rounded-xl overflow-hidden shadow-sm group">
+<!-- Camera/Image Area -->
+<div class="absolute inset-0 z-0">
+<img id="scanPreview" class="w-full h-full object-cover" data-alt="close-up high resolution photography of a monstera leaf with intricate vein patterns under soft natural studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEyeQvol2yToT2k8HO00KuAI6xGhIqxv6xsxYbRgfzG02-83CfHC0UNKxuMic_aUxo4_3EWTfVXvRm1XowdRJiYpVSxnHBqitHlDirH1cl8ggTo2v7Kas3Q_21Mn_doLPnfWD4JQfta0hVzkgpTkQkyW15AnbPK-w83L9s5Zfxs-0vQFxHoObhiI9cGvXm7RStMnWWX-H087yjiN5bfewCgafQhHCqo3YD5tPnby1dGgCsx67tAfX_D63nA2lixnRILpUWfFWTM3c"/>
+<video id="cameraStream" autoplay playsinline class="hidden absolute inset-0 w-full h-full object-cover z-0"></video>
+<canvas id="cameraCanvas" class="hidden"></canvas>
+<div class="absolute inset-0 camera-overlay pointer-events-none z-10"></div>
+</div>
+<!-- Scanning Frame -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-64 h-64 md:w-80 md:h-80 border-2 border-dashed border-primary/40 rounded-3xl relative">
+<div class="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-primary rounded-tl-xl"></div>
+<div class="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-primary rounded-tr-xl"></div>
+<div class="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-primary rounded-bl-xl"></div>
+<div class="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-primary rounded-br-xl"></div>
+</div>
+</div>
+<!-- Contextual Guidance Overlay -->
+<div class="absolute bottom-8 left-0 right-0 px-8">
+<div class="glass-panel p-6 rounded-xl flex items-center justify-between shadow-2xl">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="center_focus_strong">center_focus_strong</span>
+</div>
+<div>
+<p class="font-headline font-bold text-on-surface">Position the leaf clearly</p>
+<p class="text-xs text-on-surface-variant">Scanning for pathogens in real-time...</p>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-xs font-bold text-primary uppercase tracking-tighter">AI Active</span>
+</div>
+</div>
+</div>
+<!-- Action Floating Buttons -->
+<div class="absolute top-6 right-6 flex flex-col gap-4">
+<button type="button" class="w-12 h-12 rounded-full glass-panel shadow-lg flex items-center justify-center text-on-surface hover:bg-white transition-all scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="flash_on">flash_on</span>
+</button>
+<button type="button" class="w-12 h-12 rounded-full glass-panel shadow-lg flex items-center justify-center text-on-surface hover:bg-white transition-all scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="info">info</span>
+</button>
+</div>
+</div>
+<!-- Technical Controls & Metadata (Bento Sidebar) -->
+<div class="lg:col-span-4 space-y-6">
+<!-- Diagnosis Context Card -->
+<div class="bg-surface-container-low p-6 rounded-xl space-y-6">
+<div>
+<h3 class="font-headline text-lg font-bold text-on-surface">Scanning Protocol</h3>
+<p class="text-sm text-on-surface-variant mt-1">Select source for detailed botanical audit.</p>
+</div>
+<div class="space-y-3">
+<button type="button" onclick="document.getElementById('galleryUpload').click()" class="w-full flex items-center justify-between p-4 bg-surface-container-lowest rounded-lg hover:bg-white transition-all group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="photo_library">photo_library</span>
+<span class="font-semibold text-on-surface">Upload from Gallery</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</button>
+<button type="button" class="w-full flex items-center justify-between p-4 bg-surface-container-lowest rounded-lg hover:bg-white transition-all group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="history">history</span>
+<span class="font-semibold text-on-surface">Recent Scans</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<div class="pt-4">
+<button type="button" id="captureBtn" onclick="toggleCamera(event)" class="w-full py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-full font-bold shadow-lg shadow-primary/20 hover:shadow-xl hover:translate-y-[-1px] transition-all flex items-center justify-center gap-2">
+<span id="captureBtnIcon" class="material-symbols-outlined text-xl" data-icon="shutter_speed">shutter_speed</span>
+                            <span id="captureBtnText">Capture specimen</span>
+                        </button>
+</div>
+</div>
+<!-- Scientific Stats Card -->
+<div class="bg-primary text-on-primary p-6 rounded-xl relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-4">
+<span class="text-xs font-bold uppercase tracking-widest text-on-primary/70">Confidence Index</span>
+<span class="material-symbols-outlined opacity-70" data-icon="monitoring">monitoring</span>
+</div>
+<div class="text-4xl font-headline font-extrabold mb-1">94.2%</div>
+<p class="text-xs text-on-primary/80 leading-tight">Average precision for Anthracnose and Leaf Blight detection in current lighting.</p>
+<!-- Health Spectrum Integration -->
+<div class="mt-6">
+<div class="flex justify-between text-[10px] font-bold uppercase mb-2 opacity-80">
+<span>Critical</span>
+<span>Optimal</span>
+</div>
+<div class="h-1.5 w-full bg-gradient-to-r from-error to-on-primary-fixed-variant rounded-full relative">
+<div class="absolute top-1/2 left-[85%] -translate-y-1/2 w-4 h-4 bg-surface-container-lowest rounded-full border-2 border-primary shadow-sm"></div>
+</div>
+</div>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-on-primary/10 rounded-full blur-2xl"></div>
+</div>
+<!-- Tips / Editorial Content -->
+<div class="bg-surface-container-high p-6 rounded-xl">
+<h4 class="font-headline text-sm font-bold text-on-surface flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-secondary text-lg" data-icon="tips_and_updates">tips_and_updates</span>
+                        Pro Botanist Tip
+                    </h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+                        Avoid backlighting your plant. Direct sunlight from behind the leaf can obscure lesion edges, making early-stage fungal detection difficult for the neural model.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Shell Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-stone-50/90 backdrop-blur-lg flex justify-around items-center h-20 px-4 z-50">
+<a class="flex flex-col items-center gap-1 text-stone-500" href="../dashboard/code.html">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-bold">DASHBOARD</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-emerald-900 font-bold" href="../scan_plant/code.html">
+<span class="material-symbols-outlined" data-icon="center_focus_strong" style="font-variation-settings: 'FILL' 1;">center_focus_strong</span>
+<span class="text-[10px]">SCAN</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-stone-500" href="../diagnosis_results/code.html">
+<span class="material-symbols-outlined" data-icon="biotech">biotech</span>
+<span class="text-[10px] font-bold">DIAGNOSIS</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-stone-500" href="../my_garden/code.html">
+<span class="material-symbols-outlined" data-icon="potted_plant">potted_plant</span>
+<span class="text-[10px] font-bold">MY GARDEN</span>
+</a>
+</nav>
+<!-- Hidden file inputs for uploading from gallery and capturing via camera -->
+<input type="file" id="galleryUpload" accept="image/png, image/jpeg" style="display: none;" onchange="handleImageSelection(event)">
+<input type="file" id="cameraCapture" accept="image/*" capture="environment" style="display: none;" onchange="handleImageSelection(event)">
+
+<script>
+    const scanPreview = document.getElementById('scanPreview');
+    const cameraStream = document.getElementById('cameraStream');
+    const cameraCanvas = document.getElementById('cameraCanvas');
+    const captureBtn = document.getElementById('captureBtn');
+    const captureBtnText = document.getElementById('captureBtnText');
+    const captureBtnIcon = document.getElementById('captureBtnIcon');
+    let stream = null;
+    let isCameraActive = false;
+
+    const handleUpload = async (event, fileInput) => {
+        if (event) {
+            event.preventDefault(); // 🚨 THIS LINE IS CRITICAL
+        }
+
+        if (captureBtn) {
+            captureBtn.innerHTML = '<span class="material-symbols-outlined text-xl animate-spin" data-icon="sync">sync</span> Analyzing...';
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append("file", fileInput);
+
+            const response = await fetch("http://127.0.0.1:5000/predict", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+            console.log(response);
+            console.log(data);
+            
+            if (!response.ok || data.error) {
+                throw new Error(data.error || `API Error: ${response.status}`);
+            }
+
+            // Store result in sessionStorage for the diagnosis screen
+            try {
+                sessionStorage.setItem("result", JSON.stringify(data));
+            } catch (e) {
+                console.warn("Storage quota exceeded", e);
+            }
+            
+            // Read file to data URL for the next page
+            if (fileInput instanceof File) {
+                const reader = new FileReader();
+                reader.onloadend = function() {
+                    try {
+                        const imageData = reader.result;
+                        sessionStorage.setItem("image", imageData);
+                    } catch (e) {
+                        console.warn("Image too large for sessionStorage", e);
+                        sessionStorage.removeItem("image"); // free up space
+                    }
+                    window.location.href = '../diagnosis_results/code.html';
+                };
+                reader.readAsDataURL(fileInput);
+            } else {
+                window.location.href = '../diagnosis_results/code.html';
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Analysis failed: " + error.message);
+            if (captureBtn) {
+                captureBtn.innerHTML = '<span id="captureBtnIcon" class="material-symbols-outlined text-xl" data-icon="shutter_speed">shutter_speed</span><span id="captureBtnText">Capture specimen</span>';
+            }
+        }
+    };
+
+    function handleImageSelection(event) {
+        event.preventDefault();
+        const file = event.target.files[0];
+        if (file) {
+            scanPreview.src = URL.createObjectURL(file);
+            handleUpload(event, file);
+        }
+    }
+
+    async function toggleCamera(event) {
+        if (event) event.preventDefault();
+        
+        if (!isCameraActive) {
+            try {
+                // Request camera access
+                stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+                cameraStream.srcObject = stream;
+                cameraStream.classList.remove('hidden');
+                scanPreview.classList.add('hidden');
+                isCameraActive = true;
+                
+                // Update button text to capture action
+                captureBtnText.innerText = "Take Photo";
+                captureBtnIcon.innerText = "camera";
+                
+            } catch (err) {
+                console.error("Error accessing camera: ", err);
+                // Fallback to native file input if camera is unavailable
+                document.getElementById('cameraCapture').click();
+            }
+        } else {
+            // Draw current video frame to canvas
+            cameraCanvas.width = cameraStream.videoWidth;
+            cameraCanvas.height = cameraStream.videoHeight;
+            cameraCanvas.getContext('2d').drawImage(cameraStream, 0, 0, cameraCanvas.width, cameraCanvas.height);
+            
+            // Stop media tracks
+            stream.getTracks().forEach(track => track.stop());
+            cameraStream.classList.add('hidden');
+            scanPreview.classList.remove('hidden');
+            
+            const dataUrl = cameraCanvas.toDataURL('image/jpeg');
+            // Show captured image in preview
+            scanPreview.src = dataUrl;
+            try {
+                sessionStorage.setItem("image", dataUrl);
+            } catch(e) {
+                console.warn(e);
+            }
+            isCameraActive = false;
+            
+            cameraCanvas.toBlob((blob) => {
+                handleUpload(event, blob); // Pass the Blob
+            }, 'image/jpeg');
+        }
+    }
+</script>
+</body></html>
